@@ -17,7 +17,7 @@
                     <div class="tags">
                         {{ range .Params.tags }}
                         <a class="tag" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" title="{{ . }}">
-                            {{ . }}
+                            {{ . }} 
                         </a>
                         {{ end }}
                     </div>
@@ -77,7 +77,11 @@
                 {{.TableOfContents}}
                 {{ end }}
                 -->
-                {{ .Content }}
+
+                {{ $content := .Content }}
+                {{ $content = replaceRE `<a href="(https?://.+)">` `<a href="$1" target="_blank">` $content | safeHTML }}
+                {{ $content = replaceRE `<a href="(mailto:.+)">` `<a href="$1" target="_blank">` $content | safeHTML }}
+                {{ $content | safeHTML }}
 
                 {{ if or (.PrevInSection) (.NextInSection) }}
                 <hr>
@@ -132,8 +136,8 @@
                         {{ $featured_condition_size := .Site.Params.featured_condition_size }}
                         {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
                         {{ if gt (len $taxonomy.Pages) $featured_condition_size }}
-                        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" title="{{ $name }}">
-                            {{ $name }} 
+                        <a href="{{ "/tags/" | relLangURL }}{{ $name }}" title="{{ $name }}">
+                            {{ $name | humanize | title }} 
                         </a>
                         {{ end }}
                         {{ end }}

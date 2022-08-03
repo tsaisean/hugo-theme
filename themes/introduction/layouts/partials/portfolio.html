@@ -1,2 +1,2 @@
-{{ $paginator := .Paginate (where (where .Site.Pages "Type" "post") "IsPage" true) }}
+{{ $paginator := .Paginate (where (where .Site.Pages "Type" "in" (slice "management" "tech")) "IsPage" true) }}
 {{ partial "posts.html" . }}

@@ -32,6 +32,7 @@ This is the Match query we see quite often when using ES. However, if you did sp
 
 Here comes the problems. What if I want a match when all the terms can be found in the message? or if I want a match when there are at least 75% of terms can be found in the message?
 
+
 The first problem can be easily resolved by setting the operator value to “and”. As for the second problem, here comes another parameter minimum_should_match that we can use to solve it.
 
 minimum_should_match supports a few types:
