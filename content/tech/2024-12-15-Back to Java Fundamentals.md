@@ -1,6 +1,6 @@
 ---
 layout:     post 
-title:      "Rediscovering Java"
+title:      "Back to Java Fundamentals"
 subtitle:   ""
 description: ""
 date:       2024-12-01 12:00:00
