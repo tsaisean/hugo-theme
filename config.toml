@@ -120,5 +120,8 @@ params = ["categories", "tags"]
   [markup.tableOfContents]
     endLevel = 2
     startLevel = 1
+    ordered = false
   [markup.highlight]
     style = "dracula"
+  [markup.goldmark.renderer]
+    unsafe = true  # This allows unsafe HTML, including lists inside tables

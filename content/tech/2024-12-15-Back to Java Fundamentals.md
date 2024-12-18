@@ -10,9 +10,10 @@ tags:
     - Java
 URL: ""
 categories: [ Tech ]
+ShowToc: true
 ---
 
-## 1. Types
+# 1. Types
 | **Type**   | **Size (Bits)** | **Default Value** | **Range**                        | **Example**              |
 |------------|-----------------|-------------------|----------------------------------|--------------------------|
 | `byte`     | 8               | 0                 | -128 to 127                     | `byte b = 10;`           |
@@ -23,22 +24,22 @@ categories: [ Tech ]
 | `double`   | 64              | 0.0d              | ~16 decimal digits              | `double d = 3.14;`       |
 | `char`     | 16              | '\u0000'          | 0 to 65,535 (Unicode)           | `char c = 'A';`          |
 | `boolean`  | 1 bit (logical) | `false`           | `true` or `false`               | `boolean b = true;`      |
-### 1.1 Common Errors and Pitfalls
-#### Numeric Overflow
+## 1.1 Common Errors and Pitfalls
+### Numeric Overflow
 - Cause: Exceeding the range of a numeric type.
 - Example:
    ``` Java
    byte b = 127;
    b++; // Wraps to -128
    ```
-#### Uninitialized Variables
+### Uninitialized Variables
 - Cause: Using a local variable without initializing it.
 - Example:
    ``` Java
    int x;
    System.out.println(x); // Compilation Error
    ```
-#### Missing Type Parameters
+### Missing Type Parameters
 - Cause: Not specifying type parameters in generics, leading to runtime issues.
 - Example:
    ``` Java
@@ -87,14 +88,14 @@ class Test {
 ```
 
 
-## 2. Class
-### 2.1 Inheritance
+# 2. Class
+## 2.1 Inheritance
 - Java does **not** support multiple inheritance with classes. A class can only extend **one superclass** at a time.
 - This restriction avoids ambiguity problems caused by multiple inheritance, such as the **Diamond Problem**.
 - In Java, when a class constructor is invoked, the constructor of its superclass is automatically called **before** the subclass constructor.
 
 
-### 2.2 Access Modifiers (public/protected/private)
+## 2.2 Access Modifiers (public/protected/private)
 | **Modifier**   | **Class** | **Package** | **Subclass** | **World** |
 |----------------|-----------|-------------|--------------|-----------|
 | `public`       | ✔️        | ✔️          | ✔️           | ✔️        |
@@ -104,10 +105,10 @@ class Test {
 
 - In Java, **default** visibility also called package-private.
 
-### 2.3 Abstract Class
+## 2.3 Abstract Class
 Abstract classes in Java **can have constructors**. However, you cannot directly instantiate an abstract class using the `new` keyword.
 
-### 2.4 Inner Class
+## 2.4 Inner Class
 There are four main types of inner classes:
 1. Non-Static Nested Classes (Regular Inner Classes)
    - To create an instance, an instance of the outer class is required:
@@ -145,7 +146,7 @@ There are four main types of inner classes:
         }
       }
       ```
-### 2.5 Static Methods
+## 2.5 Static Methods
 - Static methods are **not overridden**; they are instead **hidden** when redefined in a subclass.
 - The method called is determined by the **type of the reference variable**, not the actual object type.
 - This is because static methods are resolved at **compile-time**, not runtime.
@@ -172,10 +173,10 @@ public class Test {
 
 ```
 
-## 3. Interface & Method References
+# 3. Interface & Method References
 - Since **Java 8**, interfaces can define **static methods**.
 
-### 3.1 Default Methods
+## 3.1 Default Methods
 Introduced in Java 8, default methods allow interfaces to have method implementations without breaking existing implementations of those interfaces.
 ``` Java
 interface MyInterface {
@@ -195,7 +196,7 @@ public class Main {
 
 ```
 
-### 3.2 `@FunctionalInterface` Annotation
+## 3.2 `@FunctionalInterface` Annotation
 The `@FunctionalInterface` annotation is used in Java to mark an interface as a `functional interface`. A functional interface is an interface with exactly `one abstract method`, making it suitable for use with `lambda expressions`.
 - The interface must have exactly one abstract method.
 - It can have:
@@ -218,7 +219,7 @@ public class Main {
 }
 ```
 
-### 3.3 Method References
+## 3.3 Method References
 Method references were introduced in Java 8 as a shorthand for writing lambda expressions.
 
 ``` Java
@@ -239,7 +240,7 @@ public class Main {
 }
 ```
 
-## 4. Lambdas
+# 4. Lambdas
 Lambdas were also introduced in Java 8, enabling functional programming. A lambda expression is a concise way to represent a method in code.
 ```Java
 List<String> names = Arrays.asList("Java", "Python", "C++");
@@ -247,7 +248,7 @@ names.forEach(name -> System.out.println(name));
 ```
 Lambdas are commonly used in streams and functional interfaces.
 
-## 5. Streams
+# 5. Streams
 Streams provide a functional approach to processing collections of data in Java 8 and later. 
 
 Features:
@@ -263,7 +264,7 @@ List<Integer> squared = numbers.stream()
 System.out.println(squared); // Output: [1, 4, 9, 16, 25]
 ```
 
-## 6. `transient` Keyword
+# 6. `transient` Keyword
 The transient keyword is used in the context of serialization. When an object is serialized (converted to a byte stream), the transient keyword prevents certain fields from being included in the serialized data.
 
 **Example:**
@@ -306,16 +307,16 @@ public class Main {
 
 ```
 
-## 7. `volatile` Keyword
+# 7. `volatile` Keyword
 The volatile keyword is used in the context of multithreading. It ensures that a variable’s value is always read directly from main memory, making it visible to all threads. 
 
 - Volatile Does Not Ensure Atomicity:
   - For operations like count++ (read-modify-write), use `synchronized` or `AtomicInteger`.
 
 
-## 8. Other Noteworthy Java Features
+# 8. Other Noteworthy Java Features
 
-### 8.1 var Keywords
+## 8.1 var Keywords
 Introduced in Java 10, var allows the compiler to infer the type of variables. For long or nested types, var reduces verbosity.
 #### Rules and Characteristics of `var`
 1. The type is determined by the compiler at compile time, not at runtime.
@@ -329,7 +330,7 @@ Map<String, List<Integer>> map = new HashMap<>();
 var map = new HashMap<String, List<Integer>>();
 ```
 
-### 8.2 Records
+## 8.2 Records
 A Record is a special kind of class in Java used to store immutable data.
 It automatically generates:
 - Constructor for all fields.

@@ -69,14 +69,12 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <!--
-                {{ if not (eq (.Param "showtoc") false) }}
+                {{ if not (or (eq (.Param "showtoc") false) (not .Params.showtoc)) }}
                 <header>
-                    <h2>TOC</h2>
+                    <h2>Table Of Contents</h2>
                 </header>
                 {{.TableOfContents}}
                 {{ end }}
-                -->
 
                 {{ $content := .Content }}
                 {{ $content = replaceRE `<a href="(https?://.+)">` `<a href="$1" target="_blank">` $content | safeHTML }}
