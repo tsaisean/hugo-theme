@@ -27,3 +27,4 @@ git commit -m "$COMMIT_MSG"
 git push origin main
 
 echo "Deployment complete!"
+echo "Your site is now live at: https://tsaisean.github.io/"
