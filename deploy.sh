@@ -1,24 +1,29 @@
 #!/bin/bash
 
-echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
+# Define the directories
+GITHUB_IO_DIR="../tsaisean.github.io"
 
-# Build the project.
-hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+# Step 1: Run Hugo command to build the site
+echo "Building Hugo site..."
+hugo
 
-# Go To Public folder
-cd public
-# Add changes to git.
-git add .
+# Step 2: Accept an optional commit message from the user
+COMMIT_MSG="${1:-"Update site content"}"
 
-# Commit changes.
-msg="rebuilding site `date`"
-if [ $# -eq 1 ]
-  then msg="$1"
-fi
-git commit -m "$msg"
+echo "Committing changes in my-blog-site repository..."
+git add -A
+git commit -m "$COMMIT_MSG"
+git push origin main
 
-# Push source and build repos.
-git push origin master
+# Step 3: Copy files from the public folder to tsaisean.github.io folder
+echo "Copying files to tsaisean.github.io directory..."
+cp -r "public/"* "$GITHUB_IO_DIR/"
 
-# Come Back up to the Project Root
-cd ..
+# Step 4: Commit and push changes in tsaisean.github.io repo
+echo "Committing changes in tsaisean.github.io repository..."
+cd "$GITHUB_IO_DIR"
+git add -A
+git commit -m "$COMMIT_MSG"
+git push origin main
+
+echo "Deployment complete!"
