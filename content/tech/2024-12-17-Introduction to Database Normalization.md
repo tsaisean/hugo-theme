@@ -1,7 +1,6 @@
 ---
 title: "Introduction to Database Normalization"
 date: 2024-12-18T13:59:24+08:00
-draft: true
 tags: ["database"]
 categories: ["Tech"]
 ---
