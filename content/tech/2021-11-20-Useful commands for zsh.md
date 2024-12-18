@@ -5,7 +5,6 @@ subtitle:   ""
 description: ""
 date:       2021-11-30 12:00:00
 image: "https://img.zhaohuabing.com/post-bg-2015.jpg"
-published: true
 tags:
     - Zsh
 URL: ""

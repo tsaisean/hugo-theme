@@ -3,10 +3,9 @@ title = "Sean's Blog"
 theme = "introduction"
 languageCode = "en-us"
 # Enable comments by entering your Disqus shortname
-disqusShortname = "tsaisean-blog"
 googleAnalytics = "G-QKQH302EGW"
 preserveTaxonomyNames = true
-paginate = 5 #frontpage pagination
+pagination.pagerSize = 5 #frontpage pagination
 hasCJKLanguage = true
 
 [outputs]
@@ -46,6 +45,7 @@ home = ["HTML", "RSS", "Algolia"]
   
   # We need a proxy to access Disqus api in China
   # Follow https://github.com/zhaohuabing/disqus-php-api to set up your own disqus proxy
+  disqusShortname = "tsaisean-blog"
   disqus_proxy = ""
   disqus_site = ""
 

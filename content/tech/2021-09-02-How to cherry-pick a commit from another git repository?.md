@@ -3,9 +3,8 @@ layout:     post
 title:      "How to cherry-pick a commit from another git repository?"
 subtitle:   ""
 description: ""
-date:       2021-09-02 12:00:00
+date:       "2021-09-02 12:00:00"
 image: "https://img.zhaohuabing.com/post-bg-2015.jpg"
-published: true
 tags:
     - Git
 URL: ""
