@@ -46,7 +46,7 @@ ShowToc: true
    list.add(123);
    String str = (String) list.get(0); // Fails at runtime
    ```
-### 1.2 String
+## 1.2 String
 
 ``` Java
 public class Test {
@@ -68,7 +68,21 @@ public class Test {
    - s3 is created with the new keyword, which creates a new object in memory, even though it has the same content as s1. 
    - Since s1 and s3 refer to different objects, s1 == s3 evaluates to false.
 
-### 1.3 Order of Operations
+## 1.3 Integer
+Use `equals` to compare whether objects are logically equal - two numbers has the same value in this case.
+``` Java
+Integer x = new Integer(5);
+Integer y = new Integer(5);
+
+System.out.println(x == y); // false (different objects in memory)
+
+Integer z = 5;
+Integer w = 5;
+
+System.out.println(z == w); // true (cached values in range [-128, 127])
+```
+
+## 1.4 Order of Operations
 - Java follows operator precedence:
   - Pre/Post-Increment and Decrement (x++, --y) are evaluated first.
   - Multiplication Divide (* /) is evaluated next.
@@ -81,7 +95,7 @@ class Test {
         int x = 5;
         int y = 10;
         int z = x++ + --y * x;
-        System.out.println(z); // Output: 46
+        System.out.println(z); // Output: 59
     }
 }
 ```
@@ -312,8 +326,35 @@ The volatile keyword is used in the context of multithreading. It ensures that a
 - Volatile Does Not Ensure Atomicity:
   - For operations like count++ (read-modify-write), use `synchronized` or `AtomicInteger`.
 
+# 8. Collections
+There are widely used standardized implementations of common data structures.
+- ArrayList
+- LinkedList
+- Vector
+- Stack
+- HashSet
+- TreeSet
+- Deque
+- PriorityQueue
+- HashMap
 
-# 8. Other Noteworthy Java Features
+All the above are not thread-safe except for Vector and Stack. For those are not thread-safe, the following is a common mistake that can lead to a `java.util.ConcurrentModificationException`. So, consider using the synchronized version of these implementations if modifications are required during iteration or when multiple threads are modifying the collection concurrently.
+
+``` Java
+for (Integer num : list) {
+    if (num == 2) {
+        list.remove(num); // ConcurrentModificationException
+    }
+}
+```
+``` Java
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    if (entry.getKey() == 2) {
+        map.remove(entry.getKey()); // ConcurrentModificationException
+    }
+}
+```
+# 9. Other Noteworthy Java Features
 
 ## 8.1 var Keywords
 Introduced in Java 10, var allows the compiler to infer the type of variables. For long or nested types, var reduces verbosity.
