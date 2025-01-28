@@ -355,7 +355,7 @@ default:
 - In Go, each case is **automatically terminated** after its block is executed.
 - Unlike other languages like C or Java, you don’t need a break to prevent fallthrough.
 
-### Multiple Values in a Case
+**1. Multiple Values in a Case**
 You can match multiple values in a single case by separating them with commas.
 ``` go
 letter := "A"
@@ -368,7 +368,7 @@ default:
 }
 ```
 
-### Switch Without an Expression
+**2. Switch Without an Expression**
 ``` go
 num := 15
 
@@ -382,7 +382,7 @@ default:
 }
 ```
 
-### Type Switch
+**3. Type Switch**
 A type switch is used to branch based on the type of an interface value.
 ```go
 var i interface{} = "hello"
@@ -397,7 +397,7 @@ default:
 }
 ```
 
-### Switch with Functions
+**4. Switch with Functions**
 ``` go
 num := 6
 
@@ -411,7 +411,7 @@ default:
 }
 ```
 
-### Fallthrough (Not very useful IMO)
+**5. Fallthrough (Not very useful IMO)**
 Use the **fallthrough** keyword to explicitly allow execution to “fall through” to the next case.
 ``` go
 num := 2
