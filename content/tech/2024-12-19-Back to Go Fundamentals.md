@@ -530,7 +530,7 @@ Pointers in Go are used to store the memory address of a value. They are a power
 var p *int // A pointer to an int
 ```
 
-** 2. Assigning a Pointer**
+**2. Assigning a Pointer**
 ``` go
 var x int = 10
 var p *int = &x // Pointer to x
@@ -541,7 +541,7 @@ fmt.Println("Value of p:", p)      // Memory address stored in p
 fmt.Println("Value at p:", *p)     // Output: 10 (dereferencing)
 ```
 
-** 3. Pointers with Functions**
+**3. Pointers with Functions**
 You can pass a pointer(**Passing by Reference**) to a function to allow it to modify the original variable.
 ``` go
 
@@ -608,4 +608,111 @@ fmt.Println((*ptr)[0]) // Output: 1
 fmt.Println(arr) // Output: [42 2 3]
 
 // This won't work: ptr[0] // Compile error: invalid operation
+```
+
+# 6. Goruntine
+A goroutine in Go is a lightweight, concurrent thread of execution. Goroutines make it easy to write programs that perform multiple tasks simultaneously without the complexity of traditional thread management.
+- Goroutines are managed by the Go runtime, not the operating system.
+- They are extremely lightweight compared to traditional threads, with minimal memory overhead (~2KB).
+- Goroutines share the same address space and communicate via channels or shared variables.
+
+**1. How to Start a Goroutine**
+``` go
+func sayHello() {
+    fmt.Println("Hello from goroutine!")
+}
+
+func main() {
+    go sayHello() // Start the goroutine
+    fmt.Println("Hello from main!")
+
+    // Allow time for the goroutine to finish
+    time.Sleep(1 * time.Second)
+}
+```
+
+**2. Anonymous Function Goroutines:**
+``` go
+func main() {
+    go func() {
+        fmt.Println("Hello from anonymous goroutine!")
+    }()
+
+    time.Sleep(1 * time.Second) // Allow goroutine to finish
+}
+```
+
+**3. Synchronizing Goroutines**
+Using **sync.WaitGroup**. The sync.WaitGroup is used to wait for multiple goroutines to finish.
+
+``` go
+func sayHello(id int, wg *sync.WaitGroup) {
+    defer wg.Done() // Mark goroutine as done
+    fmt.Printf("Hello from goroutine %d!\n", id)
+}
+
+func main() {
+    var wg sync.WaitGroup
+
+    for i := 1; i <= 3; i++ {
+        wg.Add(1) // Increment WaitGroup counter
+        go sayHello(i, &wg)
+    }
+
+    wg.Wait() // Wait for all goroutines to finish
+    fmt.Println("All goroutines are done!")
+}
+```
+
+**4. Communication Between Goroutines - Channels**
+Goroutines communicate using **channels**, which are safe for concurrent access.
+``` go 
+func sendMessage(ch chan string) {
+    ch <- "Hello from goroutine!" // Send message to the channel
+}
+
+func main() {
+    ch := make(chan string) // Create a channel
+
+    go sendMessage(ch)       // Start the goroutine
+    msg := <-ch              // Receive message from the channel
+
+    fmt.Println(msg) // Output: Hello from goroutine!
+
+}
+```
+
+**5. Buffered Channels**
+Channels can be buffered, allowing goroutines to send multiple messages without waiting for immediate reception.
+``` go
+func main() {
+    ch := make(chan int, 2) // Buffered channel with capacity 2
+
+    ch <- 1
+    ch <- 2
+
+    fmt.Println(<-ch) // Output: 1
+    fmt.Println(<-ch) // Output: 2
+}
+```
+
+**6. Read-Only  and write-only channels**
+
+``` go
+func receiveMessages(ch <-chan string) {
+    for msg := range ch {
+        fmt.Println("Received:", msg)
+    }
+
+    // ch <- "Message" // Compile error: cannot send to read-only channel
+}
+```
+
+``` go
+func sendMessages(ch chan<- string) {
+    ch <- "Hello"
+    ch <- "World"
+
+    // msg := <-ch // Compile error: cannot receive from write-only channel
+}
 ```
