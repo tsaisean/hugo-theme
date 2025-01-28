@@ -429,8 +429,7 @@ default:
 }
 ```
 
-# 4. Function
-### 
+# 4. Function 
 **1. Function with Mutilple Return Values**
 Functions can return multiple values. **( )** is required for returning multiple values.
 
@@ -521,4 +520,92 @@ func main() {
     double := multiplier(2)
     fmt.Println(double(5)) // Output: 10
 }
+```
+
+# 5. Pointers
+Pointers in Go are used to store the memory address of a value. They are a powerful feature that allows you to work with memory directly, pass references to functions, and modify values without copying.
+
+**1. Declaring and Using Pointers**
+``` go
+var p *int // A pointer to an int
+```
+
+** 2. Assigning a Pointer**
+``` go
+var x int = 10
+var p *int = &x // Pointer to x
+
+fmt.Println("Value of x:", x)       // Output: 10
+fmt.Println("Address of x:", &x)   // Memory address
+fmt.Println("Value of p:", p)      // Memory address stored in p
+fmt.Println("Value at p:", *p)     // Output: 10 (dereferencing)
+```
+
+** 3. Pointers with Functions**
+You can pass a pointer(**Passing by Reference**) to a function to allow it to modify the original variable.
+``` go
+
+// Function that modifies the value of x through a pointer
+func updateValue(p *int) {
+    *p = 50
+}
+
+func main() {
+    x := 10
+    fmt.Println("Before:", x)
+
+    updateValue(&x) // Pass the address of x
+    fmt.Println("After:", x) // Output: 50
+}
+```
+
+**4. Common Use Cases for Pointers**
+Avoid Copying Large Data Structures: Use pointers to pass large structs or arrays to functions efficiently.
+``` go
+func modifyStruct(p *LargeStruct) {
+    p.Field = "Updated"
+}
+```
+
+**5. Automatic Dereferencing**
+Go automatically dereferences the pointer for you when you access a field or method of a struct or slice through a pointer. This is called automatic dereferencing.
+``` go
+type Point struct {
+    X, Y int
+}
+
+func (p *Point) Update() {
+    p.X = 10 // Simplified syntax
+    (*p).Y = 20 // Explicit dereferencing, but unnecessary
+}
+```
+Pointer to a Slice:
+
+``` go
+slice := []int{1, 2, 3}  // A slice
+ptr := &slice            // Pointer to the slice
+
+// Access elements directly via pointer (automatic dereferencing)
+fmt.Println((*ptr)[0]) // Output: 1
+fmt.Println(ptr[0])    // This works the same way in Go (automatic dereferencing)
+
+// Modify elements via pointer
+(*ptr)[0] = 42
+fmt.Println(slice) // Output: [42 2 3]
+```
+
+**6. No Automatic Dereferencing for Arrays**
+In Go, a pointer to an array (*[N]T) does not support automatic dereferencing when accessing elements. You need to explicitly dereference the array pointer to access or modify its elements.
+``` go
+arr := [3]int{1, 2, 3}  // Array of size 3
+ptr := &arr             // Pointer to the array
+
+// Accessing elements via pointer requires explicit dereferencing
+fmt.Println((*ptr)[0]) // Output: 1
+
+// Modifying elements via pointer
+(*ptr)[0] = 42
+fmt.Println(arr) // Output: [42 2 3]
+
+// This won't work: ptr[0] // Compile error: invalid operation
 ```
